@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>ARACHNE – Connessione</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: black;
+      color: lime;
+      font-family: 'Courier New', monospace;
+      font-size: 1.4em;
+      text-align: center;
+      padding: 40px;
+      margin: 0;
+    }
+
+    .progress-bar {
+      border: 1px solid lime;
+      width: 80%;
+      height: 40px;
+      margin: 50px auto;
+      position: relative;
+    }
+
+    .fill {
+      background-color: lime;
+      height: 100%;
+      width: 0%;
+      transition: width 2.5s linear;
+    }
+
+    .status {
+      margin-top: 30px;
+      min-height: 50px;
+    }
+
+    #main-screen {
+      display: none;
+    }
+
+    .qr {
+      margin-top: 30px;
+    }
+
+    .button {
+      background: transparent;
+      border: 2px solid lime;
+      padding: 10px 20px;
+      color: lime;
+      font-size: 1.2em;
+      margin-top: 20px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .button:hover {
+      background: lime;
+      color: black;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="loading-screen">
+    <h1>🕷️ Protocollo ARACHNE</h1>
+    <div class="progress-bar">
+      <div class="fill" id="fill"></div>
+    </div>
+    <div class="status" id="status">Inizializzazione...</div>
+  </div>
+
+  <div id="main-screen">
+    <h1>ARACHNE – Protocollo Abisso</h1>
+    <p>Non è un gioco. È un invito.</p>
+    <div class="qr">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/393471962642?text=Ciao%20ARACHNE%2C%20sono%20pronto" alt="QR Code">
+    </div>
+    <button class="button" onclick="alert('Protocollo attivato!')">Avvia il Protocollo</button>
+  </div>
+
+  <audio autoplay loop>
+    <source src="arachne_glitch.mp3" type="audio/mpeg">
+    Il tuo browser non supporta l'audio HTML5.
+  </audio>
+
+  <script>
+    const phrases = [
+      "Connessione al Protocollo ARACHNE in corso...",
+      "Infiltrazione nei sistemi...",
+      "Sussurri rilevati.",
+      "ARACHNE è attiva."
+    ];
+
+    const fillElem = document.getElementById('fill');
+    const statusElem = document.getElementById('status');
+    const loadingScreen = document.getElementById('loading-screen');
+    const mainScreen = document.getElementById('main-screen');
+
+    let step = 0;
+    const totalSteps = phrases.length;
+    const interval = 2500;
+
+    function updateStep() {
+      if (step < totalSteps) {
+        let progress = ((step + 1) / totalSteps) * 100;
+        fillElem.style.width = progress + '%';
+        statusElem.textContent = phrases[step];
+        step++;
+      } else {
+        clearInterval(intervalID);
+        // Attiva la schermata principale
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+          mainScreen.style.display = 'block';
+        }, 1000);
+      }
+    }
+
+    let intervalID = setInterval(updateStep, interval);
+  </script>
+</body>
+</html>
